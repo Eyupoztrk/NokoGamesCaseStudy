@@ -12,7 +12,6 @@ public abstract class CutSystem : MonoBehaviour
 
     protected virtual void Starting()
     {
-        print("start");
         elapsedTime = 0;
         player = GameObject.FindGameObjectWithTag("Player");
        // player.GetComponent<PlayerMovement>().Cut();
@@ -20,19 +19,18 @@ public abstract class CutSystem : MonoBehaviour
 
     public virtual IEnumerator Cutting(Slider treeSlider, float cuttingTime)
     {
-        
+
         while (player.GetComponent<PlayerMovement>().isCutting)
         {
             yield return new WaitForSeconds(0.01f);
-            elapsedTime += Time.deltaTime;
+            elapsedTime += 0.01f; // Sabit zaman aralýðý
             treeSlider.value = elapsedTime;
 
-            if(elapsedTime >= cuttingTime)
+            if (elapsedTime >= cuttingTime)
             {
                 player.GetComponent<PlayerMovement>().Idle();
                 yield break;
             }
-
         }
 
 
