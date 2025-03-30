@@ -9,6 +9,8 @@ TagManager:
   - PlayerBack
   - stackPos
   - LogArea
+  - stackPosForAIPlayer
+  - AIPlayer
   layers:
   - Default
   - TransparentFX

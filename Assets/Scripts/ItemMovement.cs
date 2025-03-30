@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class ItemMovement : MonoBehaviour
 {
-    public Transform playerBack; // Eþyalarýn sýrt pozisyonu
-    private float stackHeight = 0.07f; // Eþyalarýn üst üste binme yüksekliði
-    //public GameObject StackPos;
-    private List<Transform> stackedItems = new List<Transform>(); // Toplanan eþyalar listesi
+    public Transform playerBack; 
+    private float stackHeight = 0.07f; 
     private Player player;
+    private AIPlayer aIPlayer;
 
     void Start()
     {
-        // Baþlangýçta sýrt pozisyonunu bul
-        // playerBack = GameObject.FindGameObjectWithTag("PlayerBack").transform;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        aIPlayer = GameObject.FindGameObjectWithTag("AIPlayer").GetComponent<AIPlayer>();
 
     }
 
@@ -39,4 +37,15 @@ public class ItemMovement : MonoBehaviour
         item.rotation = player.gameObject.transform.rotation;
         item.SetParent(player.gameObject.transform, true);
     }
+
+    public void CollectItemToAiPlayer(Transform item)
+    {
+        var StackPos = GameObject.FindGameObjectWithTag("stackPosForAIPlayer");
+        Vector3 targetPosition = new Vector3(StackPos.transform.position.x, StackPos.transform.position.y, StackPos.transform.position.z) + Vector3.up * (stackHeight * aIPlayer.stackedIWoodLogs.Count);
+
+        item.position = targetPosition;
+        item.rotation = aIPlayer.gameObject.transform.rotation;
+        item.SetParent(aIPlayer.gameObject.transform, true);
+    }
+
 }

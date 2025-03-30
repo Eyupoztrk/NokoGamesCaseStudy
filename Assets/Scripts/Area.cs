@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class Area : MonoBehaviour
 {
@@ -10,8 +9,12 @@ public class Area : MonoBehaviour
     private int itemsPerRow = 3;   
     private float dropDelay = 0.05f;
     public int capacity;
+
+    public bool isInput;
+    public bool isOutput;
     public bool isForPlayer;
     public bool isForAIPlayer;
+
 
 
 
@@ -34,17 +37,37 @@ public class Area : MonoBehaviour
 
         }
 
-        if (other.gameObject.transform.CompareTag("Player") && isForAIPlayer)
+       if (other.gameObject.transform.CompareTag("AIPlayer") && isForAIPlayer)
         {
-            var player = other.gameObject.GetComponent<Player>();
 
-            //var items = player.stackedIWoodLogs.ToArray();
+            if(isInput)
+            {
+                print("is input");
+                var ai_player = other.gameObject.GetComponent<AIPlayer>();
 
-           // StartCoroutine(GetItemsFromPlayer(items, player));
 
-            AreaItems.Clear();
-            count = 0;
-            row = 0;
+                var count = AreaItems.Count;
+                for (int i =0;i<count;i++)
+                {
+                    var item = DecreaseItem();
+                    item.GetComponent<ItemMovement>().CollectItemToAiPlayer(item.gameObject.transform);
+                    ai_player.stackedIWoodLogs.Push(item);
+
+                }
+            }
+
+            if(isOutput)
+            {
+                var ai_player = other.gameObject.GetComponent<AIPlayer>();
+
+                var items = ai_player.stackedIWoodLogs.ToArray();
+
+                StartCoroutine(GetItemsFromPlayer(items, ai_player));
+
+              /*  AreaItems.Clear();
+                count = 0;
+                row = 0;*/
+            }
 
 
 
@@ -62,7 +85,7 @@ public class Area : MonoBehaviour
                 float yPos = (row * yOffset);
 
                 item.transform.SetParent(null);
-                item.transform.position = new Vector3(transform.position.x + xPos - 0.05f, transform.position.y + yPos, transform.position.z);
+                item.transform.position = new Vector3(transform.position.x + xPos - 0.1f, transform.position.y + yPos, transform.position.z);
                 item.transform.rotation = Quaternion.Euler(0, 90, 0);
                 item.transform.SetParent(this.gameObject.transform);
 
@@ -82,6 +105,40 @@ public class Area : MonoBehaviour
         }
 
     }
+
+    private IEnumerator GetItemsFromPlayer(GameObject[] items, AIPlayer aiPlayer)
+    {
+        foreach (var item in items)
+        {
+            if (!isFull())
+            {
+
+                float xPos = (count % itemsPerRow) * xOffset;
+                float yPos = (row * yOffset);
+
+                item.transform.SetParent(null);
+                item.transform.position = new Vector3(transform.position.x + xPos - 0.1f, transform.position.y + yPos, transform.position.z);
+                item.transform.rotation = Quaternion.Euler(0, 90, 0);
+                item.transform.SetParent(this.gameObject.transform);
+
+                count++;
+
+                if (count % itemsPerRow == 0)
+                {
+                    row++;
+                }
+                AreaItems.Push(item);
+               
+                aiPlayer.stackedIWoodLogs.Pop();
+
+                yield return new WaitForSeconds(dropDelay);
+            }
+            else { break; }
+
+        }
+
+    }
+
 
     public bool isFull()
     {
