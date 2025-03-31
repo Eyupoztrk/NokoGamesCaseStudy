@@ -11,9 +11,4 @@ public class PlayerAnimationSetter : MonoBehaviour
         playerController = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

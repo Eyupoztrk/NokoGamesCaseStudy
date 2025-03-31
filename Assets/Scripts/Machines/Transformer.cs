@@ -12,6 +12,7 @@ public class Transformer : Machine
 
     protected override IEnumerator ProcessItem()
     {
+        print("Transformer çalýþýyor");
         return base.ProcessItem();
     }
 

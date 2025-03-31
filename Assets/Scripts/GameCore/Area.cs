@@ -15,7 +15,8 @@ public enum OwnerType
 {
     None,
     Player,
-    AI
+    AI,
+    Both
 }
 
 public enum AIInteractionType
@@ -44,6 +45,32 @@ public class Area : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.transform.CompareTag("Player") && ownerType == OwnerType.Both)
+        {
+            GameObject[] items; 
+
+            if (other.GetComponent<Player>() != null)
+            {
+                var player = other.gameObject.GetComponent<Player>();
+                 items = player.CollectedItems.ToArray();
+            }
+                
+            else if (other.GetComponent<AIPlayer>() != null)
+            {
+                var ai_player = other.gameObject.GetComponent<AIPlayer>();
+                 items = ai_player.CollectedItems.ToArray();
+            }
+            else
+                items = null;
+
+
+                switch (areaType)
+                {
+                    case AreaType.Trash:
+                        StartCoroutine(GetItemsFromForTrash(items, other.gameObject));
+                        break;
+                }
+        }
         if (other.gameObject.transform.CompareTag("Player") && ownerType == OwnerType.Player)
         {
             var player = other.gameObject.GetComponent<Player>();
@@ -58,6 +85,9 @@ public class Area : MonoBehaviour
                     GiveItemToPlayer(player);
                     break;
                 case AreaType.Process:
+                    StartCoroutine(GetItemsFromPlayer(items, player));
+                    break;
+                case AreaType.Trash:
                     StartCoroutine(GetItemsFromPlayer(items, player));
                     break;
             }
@@ -131,6 +161,26 @@ public class Area : MonoBehaviour
                 PositionItem(item);
                 AreaItems.Push(item);
                 player.CollectedItems.Pop();
+                yield return new WaitForSeconds(dropDelay);
+            }
+            else { break; }
+        }
+    }
+
+    private IEnumerator GetItemsFromForTrash(GameObject[] items, GameObject character)
+    {
+        foreach (var item in items)
+        {
+            if (!isFull())
+            {
+                GameManager.Instance.EarnMoney(50);
+                PositionItem(item);
+                AreaItems.Push(item);
+
+                if(character.GetComponent<Player>() != null)
+                    character.GetComponent<Player>().CollectedItems.Pop();
+                if(character.GetComponent<AIPlayer>() != null)
+                    character.GetComponent<AIPlayer>().CollectedItems.Pop();
                 yield return new WaitForSeconds(dropDelay);
             }
             else { break; }
