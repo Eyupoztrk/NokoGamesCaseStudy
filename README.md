@@ -1,6 +1,7 @@
 # Oyun Mekanikleri
 
-apk dosyası: https://drive.google.com/file/d/1jerKAJBg_Mxhw0nAtkKocvUTYDSa2Wo3/view?usp=sharing
+Apk dosyası: https://drive.google.com/file/d/1jerKAJBg_Mxhw0nAtkKocvUTYDSa2Wo3/view?usp=sharing
+Oynanış videosu: https://drive.google.com/file/d/1ZOPK2yXZdv67ssqkLCA227UTcSQa2WYU/view?usp=sharing
 ---
 
 ## Oynanış Mekanikleri
