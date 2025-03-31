@@ -1,7 +1,5 @@
 # Oyun Mekanikleri
 
-## Genel Bakış
-Bu oyun, kaynak toplama ve işleme üzerine kurulu bir simülasyondur. Oyuncu ve AI karakter belirli görevleri yerine getirerek hammaddeyi işleyip satarak para kazanabilir. Her alanın belirli bir depolama kapasitesi vardır ve doluluk seviyesine dikkat edilmelidir.
 
 ---
 
@@ -37,14 +35,4 @@ Bu oyun, kaynak toplama ve işleme üzerine kurulu bir simülasyondur. Oyuncu ve
 ### 7. Çöp Kutusu Alanı
 - Hem oyuncu hem de AI karakter gereksiz eşyaları **Çöp Kutusu Alanına** götürerek yok edebilir.
 
----
 
-## Strateji ve Dikkat Edilmesi Gerekenler
-- **Depolama Kapasitelerini Yönetmek:** Depolama alanları dolarsa işlem durur, bu yüzden düzenli olarak eşyaları taşımak önemlidir.
-- **AI Karakteri Verimli Kullanmak:** AI karakter, tahtaları taşımakla görevli olduğundan onun hareketlerini optimize etmek verimliliği artırır.
-- **Hızlı Para Kazanma:** Küpleri hızlıca **Para Alanına** götürmek, kazancı maksimize etmek için önemlidir.
-
----
-
-## Sonuç
-Bu oyun, kaynak yönetimi ve işleme üzerine kurulu bir sistem sunmaktadır. Oyuncu ve AI karakter belirli görevleri yerine getirerek üretim sürecini sürdürmeli ve en iyi şekilde para kazanmalıdır.
