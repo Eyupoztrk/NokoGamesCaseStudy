@@ -11,6 +11,8 @@ TagManager:
   - LogArea
   - stackPosForAIPlayer
   - AIPlayer
+  - Log
+  - Product
   layers:
   - Default
   - TransparentFX

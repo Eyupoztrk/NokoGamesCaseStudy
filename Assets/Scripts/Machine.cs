@@ -12,7 +12,7 @@ public class Machine : MonoBehaviour
     public Transform outputSpawnerPos;
     public GameObject targetObjectForMachine;
 
-    public float moveSpeed = 5f; // Hareket hýzý
+    public float moveSpeed = 5f; 
     public float processTime = 1f;
 
     protected bool isProcessing = false;

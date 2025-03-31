@@ -21,20 +21,16 @@ public class AIPlayerMovement : MonoBehaviour
     {
         while (true)
         {
-            // Check if we can collect from input (input has items and output isn't full)
             if (CanCollectFromInput())
             {
-                // Move to input area
                 yield return MoveToTarget(inputArea);
                 yield return new WaitForSeconds(idleTime);
 
-                // Move to output area
                 yield return MoveToTarget(outputArea);
                 yield return new WaitForSeconds(idleTime);
             }
             else
             {
-                // If can't collect, wait before checking again
                 yield return new WaitForSeconds(idleTime);
             }
         }

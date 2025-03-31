@@ -8,7 +8,7 @@ public class Spawner : Machine
     
 
     public GameObject armature;
-    public float armatureTurnSpeed = 100f; // Armature dönüþ hýzý
+    public float armatureTurnSpeed = 100f; 
 
     private void Start()
     {
@@ -20,7 +20,7 @@ public class Spawner : Machine
     {
         isProcessing = true;
 
-        StartCoroutine(RotateArmature()); // Armature dönüþünü baþlat
+        StartCoroutine(RotateArmature());
         print("Spawner çalýþýyor");
 
 

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Tree : CutSystem
 {
     public Slider treeSlider;
+    public GameObject sliderFill;
     public float cuttingTime;
     public GameObject woodenLogPrefab;
     public int woodenLogAmount;
@@ -13,32 +14,31 @@ public class Tree : CutSystem
     private void Start()
     {
         treeSlider.maxValue = cuttingTime;
+        sliderFill.SetActive(false);
         Starting();
       //  StartCoroutine(Cutting(treeSlider, cuttingTime));
     }
 
     public override IEnumerator Cutting(Slider treeSlider, float cuttingTime)
     {
+        sliderFill.SetActive(true);
         yield return base.Cutting(treeSlider, cuttingTime);
 
         if (elapsedTime >= cuttingTime)
         {
-           // var woodenLogParent= Instantiate(woodenLogPrefab, new Vector3(gameObject.transform.localPosition.x -0.3f, gameObject.transform.localPosition.y + 0.7f, gameObject.transform.localPosition.z), Quaternion.identity);
-           // woodenLogParent.transform.DetachChildren();
            SpawnLogs();
-           
         }
     }
 
     private void SpawnLogs()
     {
-        float spawnRadius = 0.5f; // Obje arasý minimum mesafe
+        float spawnRadius = 0.5f;
         List<Vector3> spawnedPositions = new List<Vector3>();
 
         for (int i = 0; i < woodenLogAmount; i++)
         {
             Vector3 spawnPosition;
-            int maxAttempts = 20; // Sonsuz döngüyü önlemek için maksimum deneme sayýsý
+            int maxAttempts = 20; 
             int attempts = 0;
 
             do
@@ -50,7 +50,6 @@ public class Tree : CutSystem
                 );
 
                 attempts++;
-                // Eðer fazla deneme yapýyorsa, döngüden çýk
                 if (attempts > maxAttempts)
                 {
                     break;

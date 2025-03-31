@@ -23,7 +23,7 @@ public abstract class CutSystem : MonoBehaviour
         while (player.GetComponent<PlayerMovement>().isCutting)
         {
             yield return new WaitForSeconds(0.01f);
-            elapsedTime += 0.01f; // Sabit zaman aralýðý
+            elapsedTime += 0.01f; 
             treeSlider.value = elapsedTime;
 
             if (elapsedTime >= cuttingTime)

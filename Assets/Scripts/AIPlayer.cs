@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class AIPlayer : MonoBehaviour
 {
-    public Stack<GameObject> stackedIWoodLogs = new Stack<GameObject>(); // Toplanan eþyalar listesi
+    public Stack<GameObject> CollectedItems = new Stack<GameObject>(); 
 
 }

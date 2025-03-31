@@ -18,11 +18,11 @@ public class ItemMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Checker"))
+        if (other.gameObject.CompareTag("Checker") && gameObject.transform.CompareTag("Log"))
         {
             gameObject.GetComponent<Rigidbody>().isKinematic = true;
             gameObject.GetComponent<Rigidbody>().detectCollisions = false;
-            player.stackedIWoodLogs.Push(gameObject);
+            player.CollectedItems.Push(gameObject);
             CollectItemToPlayer(gameObject.transform);
            
         }
@@ -31,7 +31,7 @@ public class ItemMovement : MonoBehaviour
     public void CollectItemToPlayer(Transform item)
     {
         var StackPos = GameObject.FindGameObjectWithTag("stackPos");
-        Vector3 targetPosition = new Vector3(StackPos.transform.position.x, StackPos.transform.position.y, StackPos.transform.position.z) + Vector3.up * (stackHeight * player.stackedIWoodLogs.Count);
+        Vector3 targetPosition = new Vector3(StackPos.transform.position.x, StackPos.transform.position.y, StackPos.transform.position.z) + Vector3.up * (stackHeight * player.CollectedItems.Count);
 
         item.position = targetPosition;
         item.rotation = player.gameObject.transform.rotation;
@@ -41,7 +41,7 @@ public class ItemMovement : MonoBehaviour
     public void CollectItemToAiPlayer(Transform item)
     {
         var StackPos = GameObject.FindGameObjectWithTag("stackPosForAIPlayer");
-        Vector3 targetPosition = new Vector3(StackPos.transform.position.x, StackPos.transform.position.y, StackPos.transform.position.z) + Vector3.up * (stackHeight * aIPlayer.stackedIWoodLogs.Count);
+        Vector3 targetPosition = new Vector3(StackPos.transform.position.x, StackPos.transform.position.y, StackPos.transform.position.z) + Vector3.up * (stackHeight * aIPlayer.CollectedItems.Count);
 
         item.position = targetPosition;
         item.rotation = aIPlayer.gameObject.transform.rotation;
